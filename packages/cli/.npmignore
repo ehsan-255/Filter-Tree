@@ -1,0 +1,6 @@
+src/
+tests/
+tsconfig.json
+ftree.yaml
+*.test.ts
+.eslintrc.json

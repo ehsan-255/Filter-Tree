@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ftree Configuration",
+  "description": "Configuration file for ftree - config-driven filtered file-tree generator",
+  "type": "object",
+  "required": ["version", "presets"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Configuration version",
+      "enum": ["1.0"]
+    },
+    "defaults": {
+      "$ref": "#/definitions/filterOptions",
+      "description": "Default options applied to all presets"
+    },
+    "presets": {
+      "type": "object",
+      "description": "Named filter presets",
+      "additionalProperties": {
+        "$ref": "#/definitions/preset"
+      }
+    },
+    "aliases": {
+      "type": "object",
+      "description": "Quick aliases for common filter combinations",
+      "additionalProperties": {
+        "$ref": "#/definitions/filterOptions"
+      }
+    }
+  },
+  "definitions": {
+    "preset": {
+      "allOf": [
+        { "$ref": "#/definitions/filterOptions" },
+        {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "Human-readable description of this preset"
+            }
+          }
+        }
+      ]
+    },
+    "filterOptions": {
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "File extensions to include (without dot)",
+          "examples": [
+            ["ts", "js"],
+            ["md", "txt"]
+          ]
+        },
+        "patterns": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Glob patterns to match",
+          "examples": [["**/*.config.*", "**/.*rc"]]
+        },
+        "include": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Directories/patterns to include",
+          "examples": [["src/**", "lib/**"]]
+        },
+        "exclude": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Directories/patterns to exclude",
+          "examples": [["**/node_modules/**", "**/.git/**"]]
+        },
+        "minSize": {
+          "type": "string",
+          "description": "Minimum file size (e.g., '1KB', '500MB')",
+          "pattern": "^\\d+(\\.\\d+)?\\s*(B|KB|MB|GB)$"
+        },
+        "maxSize": {
+          "type": "string",
+          "description": "Maximum file size (e.g., '10MB', '1GB')",
+          "pattern": "^\\d+(\\.\\d+)?\\s*(B|KB|MB|GB)$"
+        },
+        "modifiedWithin": {
+          "type": "string",
+          "description": "Show files modified within duration (e.g., '7d', '2h', '1w')",
+          "pattern": "^\\d+(h|d|w|m)$"
+        },
+        "modifiedAfter": {
+          "type": "string",
+          "description": "Show files modified after date (ISO format)",
+          "format": "date"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["file", "directory", "any"],
+          "description": "Filter by item type"
+        },
+        "depth": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Maximum directory depth to scan"
+        },
+        "output": {
+          "type": "string",
+          "enum": ["markdown", "ascii", "json", "paths"],
+          "description": "Output format"
+        },
+        "sortBy": {
+          "type": "string",
+          "enum": ["name", "size-asc", "size-desc", "date-asc", "date-desc"],
+          "description": "Sort results by"
+        },
+        "showSize": {
+          "type": "boolean",
+          "description": "Show file sizes in output"
+        },
+        "showDate": {
+          "type": "boolean",
+          "description": "Show modification dates in output"
+        },
+        "empty": {
+          "type": "boolean",
+          "description": "Find empty directories only"
+        },
+        "gitStatus": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["modified", "added", "untracked", "deleted"]
+          },
+          "description": "Filter by Git status"
+        }
+      }
+    }
+  }
+}

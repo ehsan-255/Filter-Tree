@@ -1,0 +1,137 @@
+{
+  "name": "ftree-vscode",
+  "displayName": "Filter Tree",
+  "description": "Config-driven filtered file-tree generator with presets, Code Lenses, and quick access",
+  "version": "0.1.0",
+  "publisher": "ftree",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "file tree",
+    "filter",
+    "directory",
+    "explorer",
+    "yaml"
+  ],
+  "icon": "icon.png",
+  "activationEvents": [
+    "workspaceContains:**/ftree.yaml",
+    "workspaceContains:**/ftree.yml"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ftree.runPreset",
+        "title": "Filter Tree: Run Preset",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "ftree.quickFilter",
+        "title": "Filter Tree: Quick Filter",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "ftree.init",
+        "title": "Filter Tree: Create Config (ftree.yaml)"
+      },
+      {
+        "command": "ftree.openConfig",
+        "title": "Filter Tree: Open Config"
+      },
+      {
+        "command": "ftree.copyToClipboard",
+        "title": "Filter Tree: Copy Result to Clipboard"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "ftree.runPreset"
+        },
+        {
+          "command": "ftree.quickFilter"
+        },
+        {
+          "command": "ftree.init"
+        },
+        {
+          "command": "ftree.openConfig"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "ftree.runPreset",
+          "when": "resourceFilename =~ /ftree\\.ya?ml$/",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "ftree.runPreset",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t"
+      },
+      {
+        "command": "ftree.quickFilter",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t"
+      }
+    ],
+    "languages": [
+      {
+        "id": "yaml",
+        "filenames": [
+          "ftree.yaml",
+          "ftree.yml",
+          ".ftreerc.yaml",
+          ".ftreerc.yml"
+        ]
+      }
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": [
+          "ftree.yaml",
+          "ftree.yml",
+          ".ftreerc.yaml",
+          ".ftreerc.yml"
+        ],
+        "url": "./schemas/ftree.schema.json"
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          ".ftreerc.json",
+          ".ftreerc"
+        ],
+        "url": "./schemas/ftree.schema.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs",
+    "watch": "npm run build -- --watch",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "glob": "^10.3.0"
+  }
+}
