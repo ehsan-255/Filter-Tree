@@ -2,12 +2,13 @@
   "name": "ftree-vscode",
   "displayName": "Filter Tree",
   "description": "Config-driven filtered file-tree generator with presets, Code Lenses, and quick access",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "ehsan-255",
   "repository": {
     "type": "git",
     "url": "https://github.com/ehsan-255/Filter-Tree.git"
   },
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.85.0"
   },
