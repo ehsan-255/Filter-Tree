@@ -27,6 +27,14 @@
     "workspaceContains:**/ftree.yaml",
     "workspaceContains:**/ftree.yml"
   ],
+  "files": [
+    "dist/**",
+    "schemas/**",
+    "icon.png",
+    "README.md",
+    "AGENTS.md",
+    "LICENSE.txt"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
