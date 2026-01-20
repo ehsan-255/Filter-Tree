@@ -270,6 +270,24 @@ presets:
       - "**/tsconfig*.json"
       - "**/package.json"
 
+  readmes:
+    description: "All README.md files across the project"
+    patterns:
+      - "**/README.md"
+      - "**/README"
+      - "**/readme.md"
+    depth: 10
+
+  ai-docs:
+    description: "AI agent-facing documentation (AGENTS, CLAUDE, GEMINI)"
+    patterns:
+      - "**/AGENTS.md"
+      - "**/CLAUDE.md"
+      - "**/GEMINI.md"
+      - "**/COPILOT.md"
+      - "**/.github/copilot-instructions.md"
+    depth: 10
+
 aliases:
   ts: { extensions: [ts, tsx] }
   docs: { extensions: [md, txt] }

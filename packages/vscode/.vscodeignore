@@ -5,3 +5,6 @@ node_modules/**
 !*.d.ts
 tsconfig.json
 .eslintrc.json
+**/.git/**
+**/node_modules/**
+../**

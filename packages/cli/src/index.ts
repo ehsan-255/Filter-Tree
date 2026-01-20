@@ -186,6 +186,26 @@ presets:
     extensions: [png, jpg, jpeg, gif, svg, webp, mp4, webm]
     depth: 3
 
+  # All README files
+  readmes:
+    description: "All README.md files across the project"
+    patterns:
+      - "**/README.md"
+      - "**/README"
+      - "**/readme.md"
+    depth: 10
+
+  # AI agent documentation files
+  ai-docs:
+    description: "AI agent-facing documentation (AGENTS, CLAUDE, GEMINI)"
+    patterns:
+      - "**/AGENTS.md"
+      - "**/CLAUDE.md"
+      - "**/GEMINI.md"
+      - "**/COPILOT.md"
+      - "**/.github/copilot-instructions.md"
+    depth: 10
+
 # Quick aliases for common filters
 aliases:
   ts: { extensions: [ts, tsx] }
