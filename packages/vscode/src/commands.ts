@@ -235,7 +235,7 @@ export async function initCommand(): Promise<void> {
     }
 
     const template = `# ftree.yaml - Filter Tree Configuration
-# Docs: https://github.com/yourname/ftree
+# Docs: https://github.com/ehsan-255/Filter-Tree
 
 version: "1.0"
 
