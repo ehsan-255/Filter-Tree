@@ -55,12 +55,12 @@ export function mergeWithDefaults(preset: Preset, defaults?: FilterDefaults): Pr
   if (!defaults) return preset;
 
   return {
+    ...preset,
     depth: preset.depth ?? defaults.depth,
     output: preset.output ?? defaults.output,
     showSize: preset.showSize ?? defaults.showSize,
     showDate: preset.showDate ?? defaults.showDate,
     exclude: [...(defaults.exclude ?? []), ...(preset.exclude ?? [])],
-    ...preset,
   };
 }
 

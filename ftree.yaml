@@ -1,5 +1,5 @@
 # ftree.yaml - Filter Tree Configuration
-# Docs: https://github.com/yourname/ftree
+# Docs: https://github.com/ehsan-255/Filter-Tree
 
 version: '1.0'
 
@@ -20,64 +20,184 @@ presets:
   # Recently modified documentation
   recent-docs:
     description: 'Documentation modified in the last 7 days'
-    extensions: [md, mdx, txt, rst]
+    extensions: [md, mdx, txt, rst, pdf]
     modifiedWithin: 7d
-    depth: 4
+    depth: 5
 
   # Source code files
   source:
-    description: 'Source code files'
-    extensions: [ts, tsx, js, jsx, py, go, rs]
+    description: 'Source code files across multiple popular programming languages'
+    extensions: [ts, tsx, js, jsx, py, go, rs, rb, php, java, cs, cpp, c, h, hpp]
     exclude:
       - '**/test/**'
+      - '**/tests/**'
       - '**/*.test.*'
       - '**/*.spec.*'
 
+  # Frontend code and style files
+  frontend:
+    description: 'Frontend code, style, and template files'
+    extensions: [html, css, scss, sass, less, js, jsx, ts, tsx, vue, svelte, json]
+    exclude:
+      - '**/node_modules/**'
+      - '**/dist/**'
+      - '**/build/**'
+
+  # Backend code files
+  backend:
+    description: 'Backend application and API service files'
+    extensions: [go, rs, py, ts, js, rb, php, java, cs]
+    exclude:
+      - '**/test/**'
+      - '**/tests/**'
+      - '**/*.test.*'
+      - '**/*.spec.*'
+      - '**/node_modules/**'
+      - '**/dist/**'
+      - '**/build/**'
+
+  # Database schemas and migrations
+  database:
+    description: 'Database schema, migration, and query files'
+    extensions: [sql, prisma, gql, graphql]
+    patterns:
+      - '**/migrations/**'
+      - '**/schema*.{sql,prisma,json}'
+
+  # Tests and benchmarks
+  tests:
+    description: 'Test suites, spec files, benchmarks, and fixtures'
+    patterns:
+      - '**/test/**'
+      - '**/tests/**'
+      - '**/__tests__/**'
+      - '**/*.test.*'
+      - '**/*.spec.*'
+      - '**/vitest.config.*'
+      - '**/jest.config.*'
+
   # Large files that might need cleanup
   large-files:
-    description: 'Files larger than 1MB'
+    description: 'Files larger than 1MB sorted by size descending'
     minSize: 1MB
     sortBy: size-desc
 
   # Config files across the project
   configs:
-    description: 'Configuration files'
+    description: 'Configuration, environment, and setting files'
     patterns:
       - '**/.*rc'
       - '**/.*rc.{js,json,yaml,yml}'
-      - '**/*.config.{js,ts,mjs}'
+      - '**/*.config.{js,ts,mjs,json}'
       - '**/tsconfig*.json'
       - '**/package.json'
+      - '**/composer.json'
+      - '**/Cargo.toml'
+      - '**/go.mod'
 
   # Assets and media
   assets:
-    description: 'Images and media files'
-    extensions: [png, jpg, jpeg, gif, svg, webp, mp4, webm]
-    depth: 3
+    description: 'Images, media, fonts and static binary assets'
+    extensions:
+      [png, jpg, jpeg, gif, svg, webp, mp4, webm, ico, ttf, woff, woff2, eot, mp3, wav, pdf]
+    depth: 4
 
   # All README files
   readmes:
-    description: 'All README.md files across the project'
+    description: 'All README.md and readme files across the project'
     patterns:
       - '**/README.md'
       - '**/README'
       - '**/readme.md'
+      - '**/README.txt'
     depth: 10
 
   # AI agent documentation files
   ai-docs:
-    description: 'AI agent-facing documentation (AGENTS, CLAUDE, GEMINI)'
+    description: 'AI agent-facing documentation and instructions'
     patterns:
       - '**/AGENTS.md'
       - '**/CLAUDE.md'
       - '**/GEMINI.md'
       - '**/COPILOT.md'
       - '**/.github/copilot-instructions.md'
+      - '**/.github/workflows/copilot*'
+      - '**/instructions.md'
+      - '**/prompt*.md'
     depth: 10
+
+  # Git changes (added, modified, untracked)
+  git-changes:
+    description: 'Files changed, added, or untracked in git status'
+    gitStatus: [modified, added, untracked]
+
+  # Empty directories to prune
+  empty-dirs:
+    description: 'Empty directories that can be pruned'
+    type: directory
+    empty: true
+
+  # Security / Secret leak checks
+  secrets-leak-risk:
+    description: 'Files that might contain sensitive credentials or keys'
+    patterns:
+      - '**/.env*'
+      - '**/*.pem'
+      - '**/*.key'
+      - '**/credentials*'
+      - '**/secrets*'
+      - '**/*.p12'
+      - '**/*.pfx'
+
+  # Compliance, health, and legal docs
+  license-notice:
+    description: 'Legal, compliance, and community health files'
+    patterns:
+      - '**/LICENSE*'
+      - '**/NOTICE*'
+      - '**/SECURITY.md'
+      - '**/CONTRIBUTING.md'
+      - '**/CODE_OF_CONDUCT.md'
+
+  # CI/CD and deployment configs
+  ci-cd:
+    description: 'CI/CD pipeline workflows and infrastructure-as-code'
+    patterns:
+      - '**/.github/workflows/*'
+      - '**/.gitlab-ci.yml'
+      - '**/jenkins*'
+      - '**/docker-compose*'
+      - '**/Dockerfile*'
+      - '**/ansible/**'
+      - '**/terraform/**'
+
+  # Package dependencies
+  packages-deps:
+    description: 'Project package manifests and dependency lockfiles'
+    patterns:
+      - '**/package.json'
+      - '**/package-lock.json'
+      - '**/pnpm-lock.yaml'
+      - '**/yarn.lock'
+      - '**/go.mod'
+      - '**/go.sum'
+      - '**/Cargo.toml'
+      - '**/Cargo.lock'
+      - '**/requirements.txt'
+      - '**/Gemfile'
+      - '**/Gemfile.lock'
+      - '**/composer.json'
+      - '**/composer.lock'
 
 # Quick aliases for common filters
 aliases:
   ts: { extensions: [ts, tsx] }
   js: { extensions: [js, jsx, mjs] }
+  py: { extensions: [py] }
+  go: { extensions: [go] }
+  rs: { extensions: [rs] }
   styles: { extensions: [css, scss, sass, less] }
   docs: { extensions: [md, mdx, txt] }
+  git: { gitStatus: [modified, added, untracked] }
+  env: { patterns: ['**/.env*'] }
+  docker: { patterns: ['**/Dockerfile*', '**/docker-compose*'] }
