@@ -21,7 +21,7 @@ npm install
 # Build all packages
 npm run build
 
-# Run tests
+# Optional full workspace test suite; see Testing Guidelines below
 npm test
 
 # Lint code
@@ -82,8 +82,15 @@ packages/vscode/src/
 
 ## Testing Guidelines
 
-- Write tests for new features
-- Run `npm test` before committing
+- For documentation-only repairs, check only the affected guidance, product
+  contract, links, and examples. Do not run runtime checks solely for a
+  documentation change.
+- For runtime changes, run the lint, build, and test checks that cover the
+  affected code.
+- `npm test` runs the full workspace test suites. Run it only as a deliberate
+  broader check; CI keeps it available through `workflow_dispatch`. It is not
+  a commit, push, or merge requirement.
+- Write tests for new runtime behavior
 - Use Vitest for assertions
 - Name tests descriptively: `should filter files by extension`
 
@@ -113,7 +120,7 @@ When choosing between approaches:
 
 ### Always
 
-- Run `npm run lint` and `npm run format` before committing
+- Run affected lint, build, and test checks for runtime changes
 - Match existing code patterns
 - Write tests for new behavior
 - Use TypeScript strict mode

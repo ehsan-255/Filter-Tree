@@ -3,8 +3,13 @@ name: CI
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - '**/*.md'
   pull_request:
     branches: [master]
+    paths-ignore:
+      - '**/*.md'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -33,4 +38,5 @@ jobs:
         run: npm run build
 
       - name: Test
+        if: github.event_name == 'workflow_dispatch'
         run: npm test

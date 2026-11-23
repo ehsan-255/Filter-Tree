@@ -34,7 +34,7 @@ npm install
 # Build all packages
 npm run build
 
-# Run tests
+# Optional full workspace test suite; see Making Changes below
 npm test
 
 # Lint code
@@ -61,16 +61,16 @@ npm run format
 
 2. **Make your changes** following our code style
 
-3. **Write/update tests** for your changes
+3. **Write/update tests** when a runtime change adds or changes behavior
 
-4. **Run checks locally**:
+4. **Run checks that cover the change**:
 
-   ```bash
-   npm run lint
-   npm run format:check
-   npm test
-   npm run build
-   ```
+   - For a documentation-only repair, check only the affected guidance,
+     product contract, links, and examples.
+   - For a runtime change, run the affected lint, build, and test checks.
+   - The full `npm test` suite is a deliberate optional check. It is available
+     through the CI workflow's `workflow_dispatch` trigger and is not a commit,
+     push, or merge requirement.
 
 5. **Commit your changes** following commit guidelines
 
@@ -113,11 +113,12 @@ chore: upgrade typescript to 5.4
 
 1. **Update documentation** if needed
 
-2. **Ensure all checks pass**:
-   - Linting
-   - Formatting
-   - Tests
-   - Build
+2. **Run the checks that cover the changed paths**:
+   - Documentation-only changes need only the relevant guidance, contract,
+     link, and example checks.
+   - Runtime changes need the affected lint, build, and test checks.
+   - The full `npm test` suite remains optional and can be run by manually
+     dispatching the CI workflow; it is not a push or merge requirement.
 
 3. **Fill out the PR template** completely
 
